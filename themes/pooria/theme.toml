@@ -1,0 +1,27 @@
+name = 'Pooria'
+license = 'MIT'
+description = 'My personal homepage theme!'
+
+tags = [
+    "responsive",
+    "simple",
+    "clean",
+    "light",
+    "dark",
+    "blog",
+    "minimal",
+    "personal",
+    "portfolio",
+]
+
+features = [
+    "responsive",
+    "blog",
+    "table-of-contents",
+    "highlight.js",
+    "favicon",
+    "social-icons",
+    "minified-assets",
+    "dark-light-images",
+    "color-palettes",
+]
