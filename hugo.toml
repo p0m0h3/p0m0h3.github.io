@@ -1,7 +1,7 @@
 baseURL = 'https://pooria.online/'
 languageCode = 'en-us'
-title = "pooria:/var/log"
-theme = 'pooria'
+title = "pourya:/var/log"
+theme = 'pourya'
 
 [taxonomies]
 tag = 'tags'
@@ -17,11 +17,9 @@ hideHeader = false
 
 homeIntroTitle = "About Me"
 homeIntroContent = """
-I'm [Pooria](https://en.wikipedia.org/wiki/Pouria) Mokhtari, a computer engineer specializing in software/systems security, applied machine learning and cryptography. I'm currently a research assistant at [Information, Network and Learning Labs](https://inl-lab.net) in Sharif University of Technology.
+I'm [Pourya](https://en.wikipedia.org/wiki/Pouria) Mokhtari, a computer engineer specializing in distrubted systems, applied machine learning and cryptography. I'm currently a research assistant at [Information, Network and Learning Labs](https://inl-lab.net) in Sharif University of Technology.
 
 My research focuses on developing machine-learning models for detecting anomalies in the context of Intrusion Detection Systems.
-
-I'm also an engineer in [Fuzzer Cloud](https://fuzzer.cloud), a start-up developing security testing automation solutions. 
 """
 
 # Collection to display on home
@@ -39,7 +37,7 @@ breadcrumbs = true
 # Social icons
 [[params.social]]
 name = "email"
-url = "mailto:contact@pooria.online"
+url = "mailto:contact@pouryamokhtari.com"
 
 [[params.social]]
 name = "linkedin"
