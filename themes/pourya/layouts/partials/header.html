@@ -1,28 +1,13 @@
-{{/* Header */}}
-
-<div class="header">
-
-    {{ if or (not (.Param "hideHeader")) .IsHome }}
-
-    <h1 class="header-title">
-        <a href="{{ site.BaseURL }}">{{ site.Title }}</a>
-    </h1>
-
-    <div class="flex">
-        {{ $currentPage := . }}
-
-        {{ with site.Params.menu }}
-        {{ range . }}
-      
-        <p class="small {{ if eq .name (lower $currentPage.Name) }} bold {{end}}">
-            <a href="{{ .url }}" {{ if and (isset . "newTab") .newTab }}target="_blank" rel="noopener noreferrer"{{ end }}>
-                /{{.name }}
-            </a>
-        </p>
-        {{ end }}
-        {{ end }}
-    </div>
-
-    {{ end }}
-
-</div>
+<header>
+  <a href="{{ .Site.BaseURL }}" class="site-title">{{ .Site.Title }}</a>
+  <div class="header-right">
+    {{- with .Site.Menus.main }}
+    <nav>
+      {{- range . }}
+      <a href="{{ .URL }}"{{ if $.IsMenuCurrent "main" . }} aria-current="page"{{ end }}>{{ .Name }}</a>
+      {{- end }}
+    </nav>
+    {{- end }}
+    <button class="theme-toggle" aria-label="Toggle theme" onclick="(function(){var h=document.documentElement;var c=h.getAttribute('data-theme')||'auto';var n=c==='auto'?'dark':c==='dark'?'light':'auto';h.setAttribute('data-theme',n);localStorage.setItem('theme',n)})()">◐</button>
+  </div>
+</header>

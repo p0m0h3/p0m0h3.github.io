@@ -1,21 +1,9 @@
-<div class="post-line">
-
-    {{ $dateFormat := "2 Jan 2006"}}
-    {{ with .Site.Params.listDateFormat }}
-    {{ $dateFormat = .}}
-    {{ end }}
-
-    <p class="line-date">{{ .Date.Format $dateFormat }} </p>
-
-    <div>
-        <p class="line-title">
-            <a href="{{ .RelPermalink }}">
-                {{ .Title }}
-            </a>
-        </p>
-
-        {{ if .Site.Params.listSummaries }}
-        <p class="line-summary"> {{ .Summary }} </p>
-        {{ end }}
-    </div>
-</div>
+<li>
+  <span class="post-date">{{ .Date.Format ($.Site.Params.listDateFormat | default "2 Jan 2006") }}</span>
+  <div>
+    <div class="post-title"><a href="{{ .Permalink }}">{{ .Title }}</a></div>
+    {{- if and $.Site.Params.listSummaries .Summary }}
+    <div class="post-summary">{{ .Summary | plainify }}</div>
+    {{- end }}
+  </div>
+</li>

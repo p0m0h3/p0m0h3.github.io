@@ -1,5 +1,5 @@
 baseURL = 'https://pooria.online/'
-languageCode = 'en-us'
+locale = 'en-us'
 title = "pourya:/var/log"
 theme = 'pourya'
 
@@ -7,34 +7,23 @@ theme = 'pourya'
 tag = 'tags'
 
 [params]
-# Meta description
 description = "Homepage"
-
-# Appearance settings
 theme = 'auto'
-colorPalette = 'default'
-hideHeader = false
-
 homeIntroTitle = "About Me"
 homeIntroContent = """
 I'm [Pourya](https://en.wikipedia.org/wiki/Pouria) Mokhtari, a computer engineer specializing in distrubted systems, applied machine learning and cryptography. I'm currently a research assistant at [Information, Network and Learning Labs](https://inl-lab.net) in Sharif University of Technology.
 
 My research focuses on developing machine-learning models for detecting anomalies in the context of Intrusion Detection Systems.
 """
-
-# Collection to display on home
 homeCollectionTitle = 'Posts'
 homeCollection = 'posts'
-
-# Lists parameters
 paginationSize = 10
 listSummaries = true
 listDateFormat = '2 Jan 2006'
+breadcrumbs = false
+footerCopyright = "All content on this web page is written by a human."
+avatar = "/images/avatar.jpg"
 
-# Breadcrumbs
-breadcrumbs = true
-
-# Social icons
 [[params.social]]
 name = "email"
 url = "mailto:contact@pouryamokhtari.com"
@@ -47,20 +36,17 @@ url = "https://www.linkedin.com/in/pooriamokhtari/"
 name = "github"
 url = "https://github.com/p0m0h3"
 
-# Main menu pages
-#[[params.menu]]
-#name = "home"
-#url = "/"
-#
-#[[params.menu]]
-#name = "posts"
-#url = "/posts"
-#
-#[[params.menu]]
-#name = "about"
-#url = "/about"
+[[menus.main]]
+name = "posts"
+url = "/posts"
+weight = 1
 
-# Syntax highligth on code blocks
-[markup]
+[[menus.main]]
+name = "about"
+url = "/about"
+weight = 2
+
+summaryLength = 30
+
 [markup.highlight]
-style = 'algol'
+noClasses = false

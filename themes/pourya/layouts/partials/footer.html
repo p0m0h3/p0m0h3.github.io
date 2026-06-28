@@ -1,16 +1,8 @@
-{{ $showFooter := default true .Site.Params.showFooter }}
-{{ if $showFooter }}
-    {{ if not .Site.Params.footerContent }}
-    <p>Powered by
-        <a href="https://gohugo.io/">Hugo</a>
-    </p>
-    {{ end }}
-    
-    {{ with .Site.Params.footerContent }}
-    <p>{{ . | markdownify }}</p>
-    {{ end }}
-{{ end }}
-
-{{ if .Param "math" }}
-{{ partialCached "math.html" . }}
-{{ end }}
+<footer>
+  {{- range .Site.Params.social }}
+  <a href="{{ .url }}" target="_blank" rel="noopener noreferrer">{{ .name }}</a>
+  {{- end }}
+  {{- with .Site.Params.footerCopyright }}
+  <span class="footer-copyright">{{ . }}</span>
+  {{- end }}
+</footer>

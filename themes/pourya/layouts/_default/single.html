@@ -1,99 +1,47 @@
 {{ define "main" }}
-
-{{/* Breadcrumbs */}}
-
-{{ if not .IsHome }}
-{{ partial "breadcrumbs.html" . }}
-{{ end }}
-
-<div {{ if .Param "autonumber" }} class="autonumber" {{ end }}>
-
-  <div class="single-intro-container">
-
-    {{/* Title and Summary */}}
-
-    <h1 class="single-title">{{ .Title }}</h1>
-    {{ with .Param "summary" }}
-    <p class="single-summary">{{ . | markdownify }}</p>
-    {{ end }}
-
-    {{/* Reading Time */}}
-
-    <p class="single-readtime">
-      {{ with .Date }}
-      {{ $dateMachine := . | time.Format "2006-01-02T15:04:05-07:00" }}
-      {{ $dateHuman := . | time.Format (default ":date_long" $.Site.Params.singleDateFormat) }}
-      <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
-      {{end}}
-
-      {{ if .Param "readTime" }}
-      &nbsp; · &nbsp;
-      {{ .ReadingTime }} min read
-      {{end }}
-    </p>
-
+<article>
+  <div class="post-header">
+    {{- if .Site.Params.breadcrumbs }}
+    <div class="breadcrumbs">
+      <a href="{{ .Site.BaseURL }}">~</a>
+      {{- range .Ancestors.Reverse }}
+      / <a href="{{ .Permalink }}">{{ .Title | lower }}</a>
+      {{- end }}
+      / {{ .Title | lower }}
+    </div>
+    {{- end }}
+    <h1>{{ .Title }}</h1>
+    <div class="post-meta">
+      <span>{{ .Date.Format "2 January 2006" }}</span>
+      <span>{{ .ReadingTime }} min read</span>
+      {{- with .Params.tags }}
+      <div class="tags">
+        {{- range . }}
+        <a href="{{ ($.Site.GetPage (printf "/tags/%s" (. | urlize))).Permalink }}" class="tag">#{{ . }}</a>
+        {{- end }}
+      </div>
+      {{- end }}
+    </div>
   </div>
-
-  {{ if .Param "showTags" }}
-
-  {{ $taxonomy := "tags" }}
-  {{ with .Param $taxonomy }}
-
-  <div class="single-tags">
-    {{ range $index, $tag := . }}
-    {{ with $.Site.GetPage (printf "/%s/%s" $taxonomy $tag) -}}
-    <span>
-      <a href="{{ .Permalink }}">#{{ .LinkTitle }}</a>
-    </span>
-    {{ end }}
-    {{ end }}
-  </div>
-
-  {{ end }}
-  {{ end }}
-
-  {{/* Table of Content */}}
-
-  {{ if .Param "toc" }}
-  <aside class="toc">
-    <p><strong>Table of contents</strong></p>
-    {{ .TableOfContents }}
-  </aside>
-  {{ end }}
-
-  {{/* Page content */}}
-
-  <div class="single-content">
+  <div class="post-content">
     {{ .Content }}
-    {{ if .Site.Params.giscus.enable }}
-    {{ partial "comments.html" . }}
-    {{ end }}
   </div>
+</article>
 
-  {{ if .Store.Get "hasMermaid" }}
-  <script type="module">
-    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({ startOnLoad: true });
-  </script>
-  {{ end }}
-
-
-  {{/* Next prev controls */}}
-
-  {{ if not (.Param "hidePagination") }}
-  {{ partial "pagination-single.html" . }}
-  {{ end }}
-
-  {{/* Back to top */}}
-
-  {{ if not (.Param "hideBackToTop") }}
-  <div class="back-to-top">
-    <a href="#top">
-      back to top
-    </a>
+{{- $prev := .PrevInSection }}
+{{- $next := .NextInSection }}
+{{- if or $prev $next }}
+<nav class="post-nav">
+  <div class="prev">
+    {{- with $prev }}
+    <div>← <a href="{{ .Permalink }}">{{ .Title }}</a></div>
+    {{- end }}
   </div>
-  {{ end }}
-
-</div>
-
+  <div class="next">
+    {{- with $next }}
+    <div><a href="{{ .Permalink }}">{{ .Title }}</a> →</div>
+    {{- end }}
+  </div>
+</nav>
+{{- end }}
 {{ end }}
