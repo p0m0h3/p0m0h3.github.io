@@ -1,24 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-	<channel>
-		<title>Raft on pourya:/var/log</title>
-		<link>http://localhost:1313/tags/raft/</link>
-		<description>Recent content in Raft on pourya:/var/log</description>
-		<generator>Hugo</generator>
-		<language>en-us</language>
-		
-		
-		
-		
-			<lastBuildDate>Wed, 12 Nov 2025 00:00:00 +0000</lastBuildDate>
-		
-			<atom:link href="http://localhost:1313/tags/raft/index.xml" rel="self" type="application/rss+xml" />
-			<item>
-				<title>On Distributed Consensus</title>
-				<link>http://localhost:1313/posts/on-distributed-consensus/</link>
-				<pubDate>Wed, 12 Nov 2025 00:00:00 +0000</pubDate>
-				<guid>http://localhost:1313/posts/on-distributed-consensus/</guid>
-				<description>&lt;p&gt;Getting a cluster of machines to agree on anything is surprisingly hard. Not hard in the way that writing a compiler is hard — hard in the way that the problem keeps shifting under your feet the moment you think you understand it.&lt;/p&gt;&#xA;&lt;h2 id=&#34;the-core-problem&#34;&gt;The Core Problem&lt;/h2&gt;&#xA;&lt;p&gt;Imagine three servers that need to agree on the value of a single integer. Each can send messages to the others, but messages can be delayed, duplicated, or dropped. Any server can crash at any time.&lt;/p&gt;</description>
-			</item>
-	</channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Raft on pourya:/var/log</title><link>https://pooria.online/tags/raft/</link><description>Recent content in Raft on pourya:/var/log</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 12 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://pooria.online/tags/raft/index.xml" rel="self" type="application/rss+xml"/><item><title>On Distributed Consensus</title><link>https://pooria.online/posts/on-distributed-consensus/</link><pubDate>Wed, 12 Nov 2025 00:00:00 +0000</pubDate><guid>https://pooria.online/posts/on-distributed-consensus/</guid><description>&lt;p&gt;Getting a cluster of machines to agree on anything is surprisingly hard. Not hard in the way that writing a compiler is hard — hard in the way that the problem keeps shifting under your feet the moment you think you understand it.&lt;/p&gt;
+&lt;h2 id="the-core-problem"&gt;The Core Problem&lt;/h2&gt;
+&lt;p&gt;Imagine three servers that need to agree on the value of a single integer. Each can send messages to the others, but messages can be delayed, duplicated, or dropped. Any server can crash at any time.&lt;/p&gt;</description></item></channel></rss>

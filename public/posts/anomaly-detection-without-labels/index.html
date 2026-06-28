@@ -1,81 +1,8 @@
-<!DOCTYPE html>
-<html lang="en-us" data-theme="auto">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Anomaly Detection Without Labels — pourya:/var/log</title><meta name="description" content="Homepage">
-<meta name="generator" content="Hugo 0.163.3">
-
-<meta property="og:title" content="Anomaly Detection Without Labels">
-<meta property="og:type" content="article">
-<meta property="og:url" content="http://localhost:1313/posts/anomaly-detection-without-labels/"><meta property="og:description" content="Homepage"><meta property="og:image" content="http://localhost:1313/images/avatar.jpg">
-<meta name="twitter:card" content="summary">
-
-<link rel="alternate" type="application/rss+xml" title="pourya:/var/log" href="http://localhost:1313/index.xml"><link rel="stylesheet" href="http://localhost:1313/css/main.min.245fecc7de88e1b5ba0d5c4b3c44b242b2d0d71a08718a2885b41599a9303402.css">
-<script>
-(function(){var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t)})();
-</script>
-</head>
-<body><header>
-  <a href="http://localhost:1313/" class="site-title">pourya:/var/log</a>
-  <div class="header-right">
-    <nav>
-      <a href="/posts">posts</a>
-      <a href="/about">about</a>
-    </nav>
-    <button class="theme-toggle" aria-label="Toggle theme" onclick="(function(){var h=document.documentElement;var c=h.getAttribute('data-theme')||'auto';var n=c==='auto'?'dark':c==='dark'?'light':'auto';h.setAttribute('data-theme',n);localStorage.setItem('theme',n)})()">◐</button>
-  </div>
-</header>
-<main>
-<article>
-  <div class="post-header">
-    <h1>Anomaly Detection Without Labels</h1>
-    <div class="post-meta">
-      <span>3 September 2025</span>
-      <span>3 min read</span>
-      <div class="tags">
-        <a href="http://localhost:1313/tags/machine-learning/" class="tag">#machine learning</a>
-        <a href="http://localhost:1313/tags/ids/" class="tag">#ids</a>
-        <a href="http://localhost:1313/tags/unsupervised/" class="tag">#unsupervised</a>
-      </div>
-    </div>
-  </div>
-  <div class="post-content">
-    <p>The standard pitch for ML-based intrusion detection goes something like this: train a classifier on labeled network traffic, deploy it, watch it catch attacks. It sounds reasonable until you ask where the labels come from.</p>
-<p>Labeled network intrusion datasets are scarce, expensive to produce, and age poorly. Attack patterns from a dataset collected in 2018 look nothing like what hits a modern network. And the rarest, most dangerous attacks — zero-days, novel APT techniques — have no labels at all because nobody has seen them before.</p>
-<p>This is why unsupervised anomaly detection is worth taking seriously, even though it is considerably messier.</p>
-<h2 id="the-setup">The Setup</h2>
-<p>Instead of learning &ldquo;this traffic pattern is malicious,&rdquo; you learn &ldquo;this traffic pattern is unusual given everything I have seen.&rdquo; The model is trained entirely on normal traffic and learns to assign a low anomaly score to patterns it recognizes, and a high score to everything else.</p>
-<p>Two families of approaches dominate:</p>
-<p><strong>Reconstruction-based.</strong> An autoencoder compresses input into a low-dimensional representation and reconstructs it. Normal traffic reconstructs well; anomalies produce high reconstruction error. Simple to train, interpretable loss, but sensitive to how you choose the bottleneck dimension.</p>
-<p><strong>Density-based.</strong> Models like Isolation Forest or SVDD learn a boundary around normal data. Points outside the boundary are anomalies. These work well on tabular flow features but struggle with sequential structure in packet-level data.</p>
-<h2 id="what-makes-network-traffic-hard">What Makes Network Traffic Hard</h2>
-<p>Raw packets are not like image pixels or word tokens. The feature space is heterogeneous — port numbers, byte counts, flag combinations, inter-arrival times — and the relevant signal is often relational: this packet is anomalous not in isolation, but because of what preceded it in the flow.</p>
-<p>Flattening a flow into a fixed-size feature vector throws away most of that structure. Keeping it means dealing with variable-length sequences, which pushes you toward LSTMs or Transformers, which are harder to train and interpret.</p>
-<p>There is also the base rate problem. Even in an actively targeted network, malicious traffic is a tiny fraction of total volume. A model that flags 0.1% of traffic as anomalous will have a false positive rate that overwhelms any security team trying to triage alerts.</p>
-<h2 id="the-threshold-problem">The Threshold Problem</h2>
-<p>Every anomaly detector has a threshold: above it, raise an alert; below it, ignore. Setting this threshold is where most real-world deployments struggle.</p>
-<p>Set it too low and you flood the SOC with noise. Set it too high and you miss attacks. The right threshold depends on the base rate of actual attacks, the cost of false positives, and the cost of missed detections — all of which vary by environment and are hard to quantify.</p>
-<p>One underused approach: rather than a binary threshold, output a ranked list of the top-N most anomalous flows per hour. Let analysts triage the list rather than react to binary alerts. This shifts the problem from &ldquo;what threshold is correct&rdquo; to &ldquo;how many flows can your team review&rdquo; — a much more tractable question.</p>
-<h2 id="where-this-is-going">Where This Is Going</h2>
-<p>The most promising recent direction is self-supervised pre-training on large unlabeled traffic corpora, followed by fine-tuning with the small number of labels that do exist. This is essentially the same playbook that transformed NLP — and early results on network data are encouraging.</p>
-<p>The unsolved problem is concept drift. Normal traffic changes constantly as services are updated, usage patterns shift, and the network topology evolves. A model trained six months ago is already partially stale. Online learning and drift detection are active research areas, but nothing has become standard practice yet.</p>
-
-  </div>
-</article>
-<nav class="post-nav">
-  <div class="prev">
-    <div>← <a href="http://localhost:1313/posts/notes-on-homomorphic-encryption/">Notes on Homomorphic Encryption</a></div>
-  </div>
-  <div class="next">
-    <div><a href="http://localhost:1313/posts/on-distributed-consensus/">On Distributed Consensus</a> →</div>
-  </div>
-</nav>
-
-  </main><footer>
-  <a href="mailto:contact@pouryamokhtari.com" target="_blank" rel="noopener noreferrer">email</a>
-  <a href="https://www.linkedin.com/in/pooriamokhtari/" target="_blank" rel="noopener noreferrer">linkedin</a>
-  <a href="https://github.com/p0m0h3" target="_blank" rel="noopener noreferrer">github</a>
-  <span class="footer-copyright">All content on this web page is written by a human.</span>
-</footer>
-</body>
-</html>
+<!doctype html><html lang=en-us data-theme=auto><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Anomaly Detection Without Labels — pourya:/var/log</title><meta name=description content="Homepage"><meta name=generator content="Hugo 0.163.3"><meta property="og:title" content="Anomaly Detection Without Labels"><meta property="og:type" content="article"><meta property="og:url" content="https://pooria.online/posts/anomaly-detection-without-labels/"><meta property="og:description" content="Homepage"><meta property="og:image" content="https://pooria.online/images/avatar.jpg"><meta name=twitter:card content="summary"><link rel=alternate type=application/rss+xml title=pourya:/var/log href=https://pooria.online/index.xml><link rel=stylesheet href=https://pooria.online/css/main.min.d1b2e5a915b71e56c2a0ff78f115b00e0f962efd7493dd61e8755a9d10e0b1d5.css><script>(function(){var e=localStorage.getItem("theme");e&&document.documentElement.setAttribute("data-theme",e)})()</script></head><body><header><a href=https://pooria.online/ class=site-title>pourya:/var/log</a><div class=header-right><nav><a href=/posts>posts</a>
+<a href=/about>about</a></nav><button class=theme-toggle aria-label="Toggle theme" onclick='(function(){var e=document.documentElement,t=e.getAttribute("data-theme")||"auto",n=t==="auto"?"dark":t==="dark"?"light":"auto";e.setAttribute("data-theme",n),localStorage.setItem("theme",n)})()'>◐</button></div></header><main><article><div class=post-header><h1>Anomaly Detection Without Labels</h1><div class=post-meta><span>3 September 2025</span>
+<span>3 min read</span><div class=tags><a href=https://pooria.online/tags/machine-learning/ class=tag>#machine learning</a>
+<a href=https://pooria.online/tags/ids/ class=tag>#ids</a>
+<a href=https://pooria.online/tags/unsupervised/ class=tag>#unsupervised</a></div></div></div><div class=post-content><p>The standard pitch for ML-based intrusion detection goes something like this: train a classifier on labeled network traffic, deploy it, watch it catch attacks. It sounds reasonable until you ask where the labels come from.</p><p>Labeled network intrusion datasets are scarce, expensive to produce, and age poorly. Attack patterns from a dataset collected in 2018 look nothing like what hits a modern network. And the rarest, most dangerous attacks — zero-days, novel APT techniques — have no labels at all because nobody has seen them before.</p><p>This is why unsupervised anomaly detection is worth taking seriously, even though it is considerably messier.</p><h2 id=the-setup>The Setup</h2><p>Instead of learning &ldquo;this traffic pattern is malicious,&rdquo; you learn &ldquo;this traffic pattern is unusual given everything I have seen.&rdquo; The model is trained entirely on normal traffic and learns to assign a low anomaly score to patterns it recognizes, and a high score to everything else.</p><p>Two families of approaches dominate:</p><p><strong>Reconstruction-based.</strong> An autoencoder compresses input into a low-dimensional representation and reconstructs it. Normal traffic reconstructs well; anomalies produce high reconstruction error. Simple to train, interpretable loss, but sensitive to how you choose the bottleneck dimension.</p><p><strong>Density-based.</strong> Models like Isolation Forest or SVDD learn a boundary around normal data. Points outside the boundary are anomalies. These work well on tabular flow features but struggle with sequential structure in packet-level data.</p><h2 id=what-makes-network-traffic-hard>What Makes Network Traffic Hard</h2><p>Raw packets are not like image pixels or word tokens. The feature space is heterogeneous — port numbers, byte counts, flag combinations, inter-arrival times — and the relevant signal is often relational: this packet is anomalous not in isolation, but because of what preceded it in the flow.</p><p>Flattening a flow into a fixed-size feature vector throws away most of that structure. Keeping it means dealing with variable-length sequences, which pushes you toward LSTMs or Transformers, which are harder to train and interpret.</p><p>There is also the base rate problem. Even in an actively targeted network, malicious traffic is a tiny fraction of total volume. A model that flags 0.1% of traffic as anomalous will have a false positive rate that overwhelms any security team trying to triage alerts.</p><h2 id=the-threshold-problem>The Threshold Problem</h2><p>Every anomaly detector has a threshold: above it, raise an alert; below it, ignore. Setting this threshold is where most real-world deployments struggle.</p><p>Set it too low and you flood the SOC with noise. Set it too high and you miss attacks. The right threshold depends on the base rate of actual attacks, the cost of false positives, and the cost of missed detections — all of which vary by environment and are hard to quantify.</p><p>One underused approach: rather than a binary threshold, output a ranked list of the top-N most anomalous flows per hour. Let analysts triage the list rather than react to binary alerts. This shifts the problem from &ldquo;what threshold is correct&rdquo; to &ldquo;how many flows can your team review&rdquo; — a much more tractable question.</p><h2 id=where-this-is-going>Where This Is Going</h2><p>The most promising recent direction is self-supervised pre-training on large unlabeled traffic corpora, followed by fine-tuning with the small number of labels that do exist. This is essentially the same playbook that transformed NLP — and early results on network data are encouraging.</p><p>The unsolved problem is concept drift. Normal traffic changes constantly as services are updated, usage patterns shift, and the network topology evolves. A model trained six months ago is already partially stale. Online learning and drift detection are active research areas, but nothing has become standard practice yet.</p></div></article><nav class=post-nav><div class=prev><div>← <a href=https://pooria.online/posts/notes-on-homomorphic-encryption/>Notes on Homomorphic Encryption</a></div></div><div class=next><div><a href=https://pooria.online/posts/on-distributed-consensus/>On Distributed Consensus</a> →</div></div></nav></main><footer><a href=mailto:contact@pouryamokhtari.com target=_blank rel="noopener noreferrer">email</a>
+<a href=https://www.linkedin.com/in/pooriamokhtari/ target=_blank rel="noopener noreferrer">linkedin</a>
+<a href=https://github.com/p0m0h3 target=_blank rel="noopener noreferrer">github</a>
+<span class=footer-copyright>All content on this web page is written by a human.</span></footer></body></html>

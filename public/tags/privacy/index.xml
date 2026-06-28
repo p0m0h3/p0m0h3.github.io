@@ -1,24 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-	<channel>
-		<title>Privacy on pourya:/var/log</title>
-		<link>http://localhost:1313/tags/privacy/</link>
-		<description>Recent content in Privacy on pourya:/var/log</description>
-		<generator>Hugo</generator>
-		<language>en-us</language>
-		
-		
-		
-		
-			<lastBuildDate>Fri, 20 Jun 2025 00:00:00 +0000</lastBuildDate>
-		
-			<atom:link href="http://localhost:1313/tags/privacy/index.xml" rel="self" type="application/rss+xml" />
-			<item>
-				<title>Notes on Homomorphic Encryption</title>
-				<link>http://localhost:1313/posts/notes-on-homomorphic-encryption/</link>
-				<pubDate>Fri, 20 Jun 2025 00:00:00 +0000</pubDate>
-				<guid>http://localhost:1313/posts/notes-on-homomorphic-encryption/</guid>
-				<description>&lt;p&gt;Homomorphic encryption lets you compute on encrypted data without decrypting it first. The server learns nothing about the inputs or outputs — only the encrypted results. It sounds like magic, and for a long time it more or less was: theoretically possible, practically useless.&lt;/p&gt;&#xA;&lt;p&gt;That is changing.&lt;/p&gt;&#xA;&lt;h2 id=&#34;the-basic-idea&#34;&gt;The Basic Idea&lt;/h2&gt;&#xA;&lt;p&gt;A standard encryption scheme takes plaintext &lt;code&gt;m&lt;/code&gt;, a key &lt;code&gt;k&lt;/code&gt;, and produces ciphertext &lt;code&gt;c = Enc(k, m)&lt;/code&gt;. To compute &lt;code&gt;f(m)&lt;/code&gt;, you decrypt, compute, re-encrypt.&lt;/p&gt;</description>
-			</item>
-	</channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Privacy on pourya:/var/log</title><link>https://pooria.online/tags/privacy/</link><description>Recent content in Privacy on pourya:/var/log</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Fri, 20 Jun 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://pooria.online/tags/privacy/index.xml" rel="self" type="application/rss+xml"/><item><title>Notes on Homomorphic Encryption</title><link>https://pooria.online/posts/notes-on-homomorphic-encryption/</link><pubDate>Fri, 20 Jun 2025 00:00:00 +0000</pubDate><guid>https://pooria.online/posts/notes-on-homomorphic-encryption/</guid><description>&lt;p&gt;Homomorphic encryption lets you compute on encrypted data without decrypting it first. The server learns nothing about the inputs or outputs — only the encrypted results. It sounds like magic, and for a long time it more or less was: theoretically possible, practically useless.&lt;/p&gt;
+&lt;p&gt;That is changing.&lt;/p&gt;
+&lt;h2 id="the-basic-idea"&gt;The Basic Idea&lt;/h2&gt;
+&lt;p&gt;A standard encryption scheme takes plaintext &lt;code&gt;m&lt;/code&gt;, a key &lt;code&gt;k&lt;/code&gt;, and produces ciphertext &lt;code&gt;c = Enc(k, m)&lt;/code&gt;. To compute &lt;code&gt;f(m)&lt;/code&gt;, you decrypt, compute, re-encrypt.&lt;/p&gt;</description></item></channel></rss>

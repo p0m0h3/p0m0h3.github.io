@@ -1,81 +1,11 @@
-<!DOCTYPE html>
-<html lang="en-us" data-theme="auto">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>On Distributed Consensus — pourya:/var/log</title><meta name="description" content="Homepage">
-<meta name="generator" content="Hugo 0.163.3">
-
-<meta property="og:title" content="On Distributed Consensus">
-<meta property="og:type" content="article">
-<meta property="og:url" content="http://localhost:1313/posts/on-distributed-consensus/"><meta property="og:description" content="Homepage"><meta property="og:image" content="http://localhost:1313/images/avatar.jpg">
-<meta name="twitter:card" content="summary">
-
-<link rel="alternate" type="application/rss+xml" title="pourya:/var/log" href="http://localhost:1313/index.xml"><link rel="stylesheet" href="http://localhost:1313/css/main.min.d1b2e5a915b71e56c2a0ff78f115b00e0f962efd7493dd61e8755a9d10e0b1d5.css">
-<script>
-(function(){var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t)})();
-</script>
-</head>
-<body><header>
-  <a href="http://localhost:1313/" class="site-title">pourya:/var/log</a>
-  <div class="header-right">
-    <nav>
-      <a href="/posts">posts</a>
-      <a href="/about">about</a>
-    </nav>
-    <button class="theme-toggle" aria-label="Toggle theme" onclick="(function(){var h=document.documentElement;var c=h.getAttribute('data-theme')||'auto';var n=c==='auto'?'dark':c==='dark'?'light':'auto';h.setAttribute('data-theme',n);localStorage.setItem('theme',n)})()">◐</button>
-  </div>
-</header>
-<main>
-<article>
-  <div class="post-header">
-    <h1>On Distributed Consensus</h1>
-    <div class="post-meta">
-      <span>12 November 2025</span>
-      <span>3 min read</span>
-      <div class="tags">
-        <a href="http://localhost:1313/tags/distributed-systems/" class="tag">#distributed systems</a>
-        <a href="http://localhost:1313/tags/raft/" class="tag">#raft</a>
-        <a href="http://localhost:1313/tags/consensus/" class="tag">#consensus</a>
-      </div>
-    </div>
-  </div>
-  <div class="post-content">
-    <p>Getting a cluster of machines to agree on anything is surprisingly hard. Not hard in the way that writing a compiler is hard — hard in the way that the problem keeps shifting under your feet the moment you think you understand it.</p>
-<h2 id="the-core-problem">The Core Problem</h2>
-<p>Imagine three servers that need to agree on the value of a single integer. Each can send messages to the others, but messages can be delayed, duplicated, or dropped. Any server can crash at any time.</p>
-<p>How do you get them to agree?</p>
-<p>The naive approach — &ldquo;just pick the one with the highest value&rdquo; — breaks immediately. What if two servers never receive each other&rsquo;s proposals? What if a server crashes mid-write and restarts with stale state?</p>
-<h2 id="rafts-answer">Raft&rsquo;s Answer</h2>
-<p>Raft sidesteps much of this by introducing a strong leader. At any given time, one node is elected leader and all writes go through it. The leader appends the write to its log, replicates it to a majority of followers, then commits.</p>
-<pre tabindex="0"><code>Client → Leader → [Follower A, Follower B]
+<!doctype html><html lang=en-us data-theme=auto><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>On Distributed Consensus — pourya:/var/log</title><meta name=description content="Homepage"><meta name=generator content="Hugo 0.163.3"><meta property="og:title" content="On Distributed Consensus"><meta property="og:type" content="article"><meta property="og:url" content="https://pooria.online/posts/on-distributed-consensus/"><meta property="og:description" content="Homepage"><meta property="og:image" content="https://pooria.online/images/avatar.jpg"><meta name=twitter:card content="summary"><link rel=alternate type=application/rss+xml title=pourya:/var/log href=https://pooria.online/index.xml><link rel=stylesheet href=https://pooria.online/css/main.min.d1b2e5a915b71e56c2a0ff78f115b00e0f962efd7493dd61e8755a9d10e0b1d5.css><script>(function(){var e=localStorage.getItem("theme");e&&document.documentElement.setAttribute("data-theme",e)})()</script></head><body><header><a href=https://pooria.online/ class=site-title>pourya:/var/log</a><div class=header-right><nav><a href=/posts>posts</a>
+<a href=/about>about</a></nav><button class=theme-toggle aria-label="Toggle theme" onclick='(function(){var e=document.documentElement,t=e.getAttribute("data-theme")||"auto",n=t==="auto"?"dark":t==="dark"?"light":"auto";e.setAttribute("data-theme",n),localStorage.setItem("theme",n)})()'>◐</button></div></header><main><article><div class=post-header><h1>On Distributed Consensus</h1><div class=post-meta><span>12 November 2025</span>
+<span>3 min read</span><div class=tags><a href=https://pooria.online/tags/distributed-systems/ class=tag>#distributed systems</a>
+<a href=https://pooria.online/tags/raft/ class=tag>#raft</a>
+<a href=https://pooria.online/tags/consensus/ class=tag>#consensus</a></div></div></div><div class=post-content><p>Getting a cluster of machines to agree on anything is surprisingly hard. Not hard in the way that writing a compiler is hard — hard in the way that the problem keeps shifting under your feet the moment you think you understand it.</p><h2 id=the-core-problem>The Core Problem</h2><p>Imagine three servers that need to agree on the value of a single integer. Each can send messages to the others, but messages can be delayed, duplicated, or dropped. Any server can crash at any time.</p><p>How do you get them to agree?</p><p>The naive approach — &ldquo;just pick the one with the highest value&rdquo; — breaks immediately. What if two servers never receive each other&rsquo;s proposals? What if a server crashes mid-write and restarts with stale state?</p><h2 id=rafts-answer>Raft&rsquo;s Answer</h2><p>Raft sidesteps much of this by introducing a strong leader. At any given time, one node is elected leader and all writes go through it. The leader appends the write to its log, replicates it to a majority of followers, then commits.</p><pre tabindex=0><code>Client → Leader → [Follower A, Follower B]
                   (waits for majority ack)
          Leader → commits → responds to client
-</code></pre><p>The crucial insight: as long as a majority of nodes are alive and can communicate, the system makes progress. A majority quorum guarantees that any two quorums overlap — so a newly elected leader can always reconstruct the committed log.</p>
-<h2 id="what-can-go-wrong">What Can Go Wrong</h2>
-<p>Raft is simpler than Paxos but still has sharp edges.</p>
-<p><strong>Network partitions.</strong> If the cluster splits into two groups, neither a minority nor a leaderless majority can make progress. This is by design — availability is sacrificed for consistency (the CP in CAP).</p>
-<p><strong>Log divergence.</strong> A leader can crash after committing locally but before replicating. The next leader must handle entries that some followers have and others don&rsquo;t, resolving conflicts by term number and log index.</p>
-<p><strong>Spurious elections.</strong> Followers that can&rsquo;t hear the leader (due to a slow network, not a crash) will start an election. This doesn&rsquo;t violate correctness, but it does interrupt availability. Tuning heartbeat intervals matters more than people expect.</p>
-<h2 id="the-part-nobody-talks-about">The Part Nobody Talks About</h2>
-<p>Most discussions of consensus stop at &ldquo;logs get replicated.&rdquo; The harder operational question is what happens to your state machine during a leader transition.</p>
-<p>If your leader crashes between committing entry 1000 and responding to the client, the client doesn&rsquo;t know whether its write succeeded. It will retry. Your state machine needs to be idempotent, or you need to track client request IDs and deduplicate — which is another distributed systems problem nested inside the first one.</p>
-<p>Consensus is a foundation, not a solution. The interesting work starts once you have it.</p>
-
-  </div>
-</article>
-<nav class="post-nav">
-  <div class="prev">
-    <div>← <a href="http://localhost:1313/posts/anomaly-detection-without-labels/">Anomaly Detection Without Labels</a></div>
-  </div>
-  <div class="next">
-  </div>
-</nav>
-
-  </main><footer>
-  <a href="mailto:contact@pouryamokhtari.com" target="_blank" rel="noopener noreferrer">email</a>
-  <a href="https://www.linkedin.com/in/pooriamokhtari/" target="_blank" rel="noopener noreferrer">linkedin</a>
-  <a href="https://github.com/p0m0h3" target="_blank" rel="noopener noreferrer">github</a>
-  <span class="footer-copyright">All content on this web page is written by a human.</span>
-</footer>
-</body>
-</html>
+</code></pre><p>The crucial insight: as long as a majority of nodes are alive and can communicate, the system makes progress. A majority quorum guarantees that any two quorums overlap — so a newly elected leader can always reconstruct the committed log.</p><h2 id=what-can-go-wrong>What Can Go Wrong</h2><p>Raft is simpler than Paxos but still has sharp edges.</p><p><strong>Network partitions.</strong> If the cluster splits into two groups, neither a minority nor a leaderless majority can make progress. This is by design — availability is sacrificed for consistency (the CP in CAP).</p><p><strong>Log divergence.</strong> A leader can crash after committing locally but before replicating. The next leader must handle entries that some followers have and others don&rsquo;t, resolving conflicts by term number and log index.</p><p><strong>Spurious elections.</strong> Followers that can&rsquo;t hear the leader (due to a slow network, not a crash) will start an election. This doesn&rsquo;t violate correctness, but it does interrupt availability. Tuning heartbeat intervals matters more than people expect.</p><h2 id=the-part-nobody-talks-about>The Part Nobody Talks About</h2><p>Most discussions of consensus stop at &ldquo;logs get replicated.&rdquo; The harder operational question is what happens to your state machine during a leader transition.</p><p>If your leader crashes between committing entry 1000 and responding to the client, the client doesn&rsquo;t know whether its write succeeded. It will retry. Your state machine needs to be idempotent, or you need to track client request IDs and deduplicate — which is another distributed systems problem nested inside the first one.</p><p>Consensus is a foundation, not a solution. The interesting work starts once you have it.</p></div></article><nav class=post-nav><div class=prev><div>← <a href=https://pooria.online/posts/anomaly-detection-without-labels/>Anomaly Detection Without Labels</a></div></div><div class=next></div></nav></main><footer><a href=mailto:contact@pouryamokhtari.com target=_blank rel="noopener noreferrer">email</a>
+<a href=https://www.linkedin.com/in/pooriamokhtari/ target=_blank rel="noopener noreferrer">linkedin</a>
+<a href=https://github.com/p0m0h3 target=_blank rel="noopener noreferrer">github</a>
+<span class=footer-copyright>All content on this web page is written by a human.</span></footer></body></html>
