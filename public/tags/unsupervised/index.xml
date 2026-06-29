@@ -1,2 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Unsupervised on pourya:/var/log</title><link>https://pooria.online/tags/unsupervised/</link><description>Recent content in Unsupervised on pourya:/var/log</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 03 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://pooria.online/tags/unsupervised/index.xml" rel="self" type="application/rss+xml"/><item><title>Anomaly Detection Without Labels</title><link>https://pooria.online/posts/anomaly-detection-without-labels/</link><pubDate>Wed, 03 Sep 2025 00:00:00 +0000</pubDate><guid>https://pooria.online/posts/anomaly-detection-without-labels/</guid><description>&lt;p&gt;The standard pitch for ML-based intrusion detection goes something like this: train a classifier on labeled network traffic, deploy it, watch it catch attacks. It sounds reasonable until you ask where the labels come from.&lt;/p&gt;
-&lt;p&gt;Labeled network intrusion datasets are scarce, expensive to produce, and age poorly. Attack patterns from a dataset collected in 2018 look nothing like what hits a modern network. And the rarest, most dangerous attacks — zero-days, novel APT techniques — have no labels at all because nobody has seen them before.&lt;/p&gt;</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Unsupervised on pourya:/var/log</title>
+		<link>http://localhost:1313/tags/unsupervised/</link>
+		<description>Recent content in Unsupervised on pourya:/var/log</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Wed, 03 Sep 2025 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="http://localhost:1313/tags/unsupervised/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Anomaly Detection Without Labels</title>
+				<link>http://localhost:1313/posts/anomaly-detection-without-labels/</link>
+				<pubDate>Wed, 03 Sep 2025 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/posts/anomaly-detection-without-labels/</guid>
+				<description>&lt;p&gt;The standard pitch for ML-based intrusion detection goes something like this: train a classifier on labeled network traffic, deploy it, watch it catch attacks. It sounds reasonable until you ask where the labels come from.&lt;/p&gt;&#xA;&lt;p&gt;Labeled network intrusion datasets are scarce, expensive to produce, and age poorly. Attack patterns from a dataset collected in 2018 look nothing like what hits a modern network. And the rarest, most dangerous attacks — zero-days, novel APT techniques — have no labels at all because nobody has seen them before.&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

@@ -1,6 +1,7 @@
 <header>
   <a href="{{ .Site.BaseURL }}" class="site-title">{{ .Site.Title }}</a>
   <div class="header-right">
+    <button class="hamburger" aria-label="Menu" onclick="this.closest('header').classList.toggle('nav-open');event.stopPropagation()">☰</button>
     {{- with .Site.Menus.main }}
     <nav>
       {{- range . }}
