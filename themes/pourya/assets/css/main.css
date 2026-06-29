@@ -236,6 +236,8 @@ main {
     font-size: 0.8rem;
     white-space: nowrap;
     flex-shrink: 0;
+    width: 6.5rem;
+    text-align: right;
 }
 
 .post-title {
